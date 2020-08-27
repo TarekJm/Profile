@@ -1355,3 +1355,6 @@ p {
       vertical-align: middle;
     }
     /* Typing effect intro by @sarangpidadi */
+    ::-webkit-scrollbar {
+      display: none;
+  }
