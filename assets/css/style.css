@@ -1233,7 +1233,7 @@ p {
   margin-top: 40px; }
   .footer-about .social li {
     display: inline-block;
-    margin-right: 30px; }
+    margin-right: 10px; }
     .footer-about .social li a {
       font-size: 22px;
       color: #fff;
@@ -1357,4 +1357,8 @@ p {
     /* Typing effect intro by @sarangpidadi */
     ::-webkit-scrollbar {
       display: none;
+  }
+
+  body {
+    overflow: hidden; /* Hide scrollbars */
   }
