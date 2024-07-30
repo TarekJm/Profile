@@ -1,439 +1,185 @@
-<!doctype html>
-<html class="no-js" lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    
-    <!--====== Title ======-->
-    <title>EasyHQ</title>
-    
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transparent Spline Viewer with Text Overlay</title>
+ <style>
+     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap');
 
-    <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
-        
-    <!--====== Animate CSS ======-->
-    <link rel="stylesheet" href="assets/css/animate.css">
-                
-    <!--====== Line Icons CSS ======-->
-    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css">
-        
-    <!--====== Bootstrap CSS ======-->
-    <link rel="stylesheet" href="assets/css/bootstrap-4.5.0.min.css">
-    
-    <!--====== Default CSS ======-->
-    <link rel="stylesheet" href="assets/css/default.css">
-    
-    <!--====== Style CSS ======-->
-    <link rel="stylesheet" href="assets/css/style.css">
-    
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      font-family: 'Orbitron', sans-serif; /* Futuristic font */
+      transition: background 1s ease-in-out;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 1s ease-in-out;
+    }
+
+    spline-viewer {
+      width: 100%;
+      height: 100%;
+      background: transparent !important; /* Ensures the background is transparent */
+    }
+
+    .overlay-text {
+      position: absolute;
+      color: #0f0; /* Neon green color */
+      font-size: 36px; /* Larger size for more impact */
+      text-align: center;
+      text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0, 0 0 40px #0f0, 0 0 50px #0f0, 0 0 60px #0f0, 0 0 70px #0f0; /* Neon glow */
+      transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+      cursor: pointer; /* Indicate that the text is clickable */
+    }
+
+    .overlay-text  {
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        color: #0f0;
+        text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0, 0 0 40px #0f0, 0 0 50px #0f0, 0 0 60px #0f0, 0 0 70px #0f0;
+      }
+      50% {
+        color: #fff;
+        text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 60px #fff, 0 0 70px #fff, 0 0 80px #fff;
+      }
+      100% {
+        color: #0f0;
+        text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0, 0 0 40px #0f0, 0 0 50px #0f0, 0 0 60px #0f0, 0 0 70px #0f0;
+      }
+    }
+
+    .hidden {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .portfolio {
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+
+    .portfolio h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .portfolio p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .portfolio .contact-info {
+      margin-top: 20px;
+    }
+
+    .portfolio .contact-info p {
+      margin: 5px 0;
+    }
+
+    .portfolio .social-icons a {
+      margin: 0 10px;
+      color: #0f0;
+      text-decoration: none;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .portfolio .social-icons a:hover {
+      color: #fff;
+    }
+
+    .portfolio .skills {
+      margin-top: 20px;
+    }
+
+    .portfolio .skills .skill {
+      margin: 10px 0;
+    }
+
+    .portfolio .skills .skill span {
+      display: inline-block;
+      background: #0f0;
+      color: #000;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+ 
+ </style>
 </head>
-
 <body>
-    <!--[if IE]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->    
+  <div class="container">
+    <spline-viewer url="https://prod.spline.design/DCEuny8F24juYg9S/scene.splinecode"></spline-viewer>
+    <div class="overlay-text" onclick="changeText()">Jmil Tarek Profolio</div>
    
-   
-    <!--====== PRELOADER PART START ======-->
-
-    <div class="preloader">
-        <div class="loader">
-            <div class="ytp-spinner">
-                <div class="ytp-spinner-container">
-                    <div class="ytp-spinner-rotator">
-                        <div class="ytp-spinner-left">
-                            <div class="ytp-spinner-circle"></div>
-                        </div>
-                        <div class="ytp-spinner-right">
-                            <div class="ytp-spinner-circle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  </div>
+ <div class="portfolio">
+      <h1>Jmil Tarek</h1>
+      <p>Full Stack Developer</p>
+      <p>Passionate about building applications  </p>
+      <div class="contact-info">
+        <p>Email: tarek.20000@hotmail.fr</p>
+        <p>Phone: (123) 456-7890</p>
+      </div>
+      <div class="social-icons">
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+      </div>
+      <div class="skills">
+        <div class="skill"><span>JavaScript</span></div>
+        <div class="skill"><span>Angular</span></div>
+        <div class="skill"><span>Node.js</span></div>
+        <div class="skill"><span>Typescript</span></div>
+        <div class="skill"><span>CSS</span></div>
+      </div>
     </div>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js"></script>
+  <script>
+    function changeText() {
+      const container = document.querySelector('.container');
+      const overlayText = document.querySelector('.overlay-text');
+      const portfolio = document.querySelector('.portfolio');
 
-    <!--====== PRELOADER PART ENDS ======-->
-    
-    <!--====== HEADER PART START ======-->
-    
-    <header class="header-area">
-        <div class="navbar-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="index.html">
-                                <img src="assets/images/logohd.png" alt="Logo">
-                            </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                            </button>
+      // Fade out the current content
+      container.classList.add('hidden');
 
-                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                                <ul id="nav" class="navbar-nav ml-auto">
-                                    <li class="nav-item active">
-                                        <a class="page-scroll" href="#home">Home</a>
-                                    </li>
-                                    
-                                </ul>
-                            </div> <!-- navbar collapse -->
-                            
-                            <div class="navbar-btn d-none d-sm-inline-block">
-                               <!-- <a class="main-btn" data-scroll-nav="0" href="https://uideck.com/templates/basic/" rel="nofollow">Download Now</a>
-                            --></div>
-                        </nav> <!-- navbar -->
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div> <!-- navbar area -->
-        
-        <div id="home" class="header-hero bg_cover" style="background-image: url(assets/images/banner-bg.svg)">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-3 ">
-                        <div class="header-hero-content footer-contact footer-about mt-50 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
-                            
-                            <div id="centeralign">
-                                <h1>CODE</h1>
-                                <p>@ihisoka i live to code and help others code...!
-                                   Projects:
-                                   RMQE Web App (audit and quality managment system )
-                                   HosinoxWebERP
-                                   Commerciale Website with online payments
-                                   Android Live Chat App (Flutter + Native android)
-                                   C# CRM system
-                                   VPN maintenance (FortiGate)
-                                   Lan installation
-                                   WebAppDeployments (openshift , manual server via vpn gateway and DNS OVH deploy)
-                                   Github group managment
-                                   Server Configuration (windowns server 2014 , Linux Redhat dist)
-                                </p>
-                              </div>
-                           
-                            
-                        </div> <!-- footer contact -->
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="header-hero-content text-center">
-                            <h3 class="header-sub-title wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.2s">Programming Profile</h3>
-                            <h2 class="header-title wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.5s">Tarek Jmil ( EasyHQ )</h2>
-                            <p class="text wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.8s">Fullstack web developper , network and VPN master</p>
-                            <a href="https://www.youtube.com/channel/UCNV1OKArneMuUgZ59_h-ddQ" class="main-btn wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="1.1s">Don't click here please!</a>
-                        </div> <!-- header hero content -->
-                        
-                    </div>
-                    <div class="col-lg-3 ">
-                        <div class="header-hero-content footer-contact footer-about mt-50 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
-                            <div class="footer-title">
-                                <h4 class="title"><i class="lni lni-star-filled"></i> Contact Us again!</h4>
-                            </div>
-                            <ul class="contact">
-                                <li><i class="lni lni-phone"></i> +21620124414</li>
-                                <li><i class="lni lni-google"></i> ihisokaiprogram@gmail.com</li>
-                                <li><i class="lni lni-github-original"></i> https://github.com/ihisoka</li>
-                                <li><i class="lni lni-map-marker"></i>  Tunisia Mednine 4100 </li>
-                            </ul>
-                            <ul class="social">
-                                <li><a target="_blank" href="#"><i class="lni lni-facebook-filled"></i></a></li>
-                                <li><a target="_blank" href="#"><i class="lni lni-twitter-filled"></i></a></li>
-                                <li><a target="_blank" href="https://www.instagram.com/tarek.js.ts/"><i class="lni lni-instagram-filled"></i></a></li>
-                                <li><a target="_blank" href="https://www.youtube.com/channel/UCNV1OKArneMuUgZ59_h-ddQ"><i class="lni lni-youtube"></i></a></li>
-                                <li><a target="_blank" href="https://tn.linkedin.com/in/jmil-tarek-458b00149"><i class="lni lni-linkedin-original"></i></a></li>
-                            </ul>
-                        </div> <!-- footer contact -->
-                    </div>
-                </div> <!-- row -->
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-                <div hidden="true" class="row">
-                    <div class="col-lg-12">
-                        <div class="header-hero-image text-center wow fadeIn" data-wow-duration="1.3s" data-wow-delay="1.4s">
-                            <img src="assets/images/header-hero.png" alt="hero">
-                        </div> <!-- header hero image -->
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-            <div id="particles-1" class="particles"></div>
-        </div> <!-- header hero -->
-    </header>
-    
-    <!--====== HEADER PART ENDS ======-->
-    
-    <!--====== BRAMD PART START ======-->
-    
-    <div hidden="true" class="brand-area pt-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="brand-logo d-flex align-items-center justify-content-center justify-content-md-between">
-                        <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                            <img src="assets/images/brand-1.png" alt="brand">
-                        </div> <!-- single logo -->
-                        <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.2s">
-                            <img src="assets/images/brand-2.png" alt="brand">
-                        </div> <!-- single logo -->
-                        <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.3s">
-                            <img src="assets/images/brand-3.png" alt="brand">
-                        </div> <!-- single logo -->
-                        <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.4s">
-                            <img src="assets/images/brand-4.png" alt="brand">
-                        </div> <!-- single logo -->
-                        <div class="single-logo mt-30 wow fadeIn" data-wow-duration="1.5s" data-wow-delay="0.5s">
-                            <img src="assets/images/brand-5.png" alt="brand">
-                        </div> <!-- single logo -->
-                    </div> <!-- brand logo -->
-                </div>
-            </div>   <!-- row -->
-        </div> <!-- container -->
-    </div>
-    
-    <!--====== BRAMD PART ENDS ======-->
-    
-    <!--====== SERVICES PART START ======-->
-    
-    <section hidden="true" id="features" class="services-area pt-120">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="section-title text-center pb-40">
-                        <div class="line m-auto"></div>
-                        <h3 class="title">Clean and simple design, <span> Comes with everything you need to get started!</span></h3>
-                    </div> <!-- section title -->
-                </div>
-            </div> <!-- row -->
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-7 col-sm-8">
-                    <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                        <div class="services-icon">
-                            <img class="shape" src="assets/images/services-shape.svg" alt="shape">
-                            <img class="shape-1" src="assets/images/services-shape-1.svg" alt="shape">
-                            <i class="lni lni-baloon"></i>
-                        </div>
-                        <div class="services-content mt-30">
-                            <h4 class="services-title"><a href="#">Clean</a></h4>
-                            <p class="text">Lorem ipsum dolor sit amet,consetetur sadipscing elitr, seddiam nonu eirmod tempor invidunt labore.</p>
-                            <a class="more" href="#">Learn More <i class="lni lni-chevron-right"></i></a>
-                        </div>
-                    </div> <!-- single services -->
-                </div>
-                <div class="col-lg-4 col-md-7 col-sm-8">
-                    <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <div class="services-icon">
-                            <img class="shape" src="assets/images/services-shape.svg" alt="shape">
-                            <img class="shape-1" src="assets/images/services-shape-2.svg" alt="shape">
-                            <i class="lni lni-cog"></i>
-                        </div>
-                        <div class="services-content mt-30">
-                            <h4 class="services-title"><a href="#">Robust</a></h4>
-                            <p class="text">Lorem ipsum dolor sit amet,consetetur sadipscing elitr, seddiam nonu eirmod tempor invidunt labore.</p>
-                            <a class="more" href="#">Learn More <i class="lni lni-chevron-right"></i></a>
-                        </div>
-                    </div> <!-- single services -->
-                </div>
-                <div class="col-lg-4 col-md-7 col-sm-8">
-                    <div class="single-services text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.8s">
-                        <div class="services-icon">
-                            <img class="shape" src="assets/images/services-shape.svg" alt="shape">
-                            <img class="shape-1" src="assets/images/services-shape-3.svg" alt="shape">
-                            <i class="lni lni-bolt-alt"></i>
-                        </div>
-                        <div class="services-content mt-30">
-                            <h4 class="services-title"><a href="#">Powerful</a></h4>
-                            <p class="text">Lorem ipsum dolor sit amet,consetetur sadipscing elitr, seddiam nonu eirmod tempor invidunt labore.</p>
-                            <a class="more" href="#">Learn More <i class="lni lni-chevron-right"></i></a>
-                        </div>
-                    </div> <!-- single services -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-    
-    <!--====== SERVICES PART ENDS ======-->
-    
-    <!--====== ABOUT PART START ======-->
-    
-    <section hidden="true" id="about" class="about-area pt-70">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="about-content mt-50 wow fadeInLeftBig" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <div class="section-title">
-                            <div class="line"></div>
-                            <h3 class="title">Quick & Easy <span>to Use Bootstrap Template</span></h3>
-                        </div> <!-- section title -->
-                        <p class="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seiam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing.</p>
-                        <a href="#" class="main-btn">Try it Free</a>
-                    </div> <!-- about content -->
-                </div>
-                <div class="col-lg-6">
-                    <div class="about-image text-center mt-50 wow fadeInRightBig" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <img src="assets/images/about1.svg" alt="about">
-                    </div> <!-- about image -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-        <div class="about-shape-1">
-            <img src="assets/images/about-shape-1.svg" alt="shape">
-        </div>
-    </section>
-    
-    <!--====== ABOUT PART ENDS ======-->
-    
-    <!--====== ABOUT PART START ======-->
-    
-    <section hidden="true" class="about-area pt-70">
-        <div class="about-shape-2">
-            <img src="assets/images/about-shape-2.svg" alt="shape">
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 order-lg-last">
-                    <div class="about-content mt-50 wow fadeInLeftBig" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <div class="section-title">
-                            <div class="line"></div>
-                            <h3 class="title">Modern design <span> with Essential Features</span></h3>
-                        </div> <!-- section title -->
-                        <p class="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seiam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing.</p>
-                        <a href="#" class="main-btn">Try it Free</a>
-                    </div> <!-- about content -->
-                </div>
-                <div class="col-lg-6 order-lg-first">
-                    <div class="about-image text-center mt-50 wow fadeInRightBig" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <img src="assets/images/about2.svg" alt="about">
-                    </div> <!-- about image -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
+      // Change background to black and show portfolio after fade out
+      setTimeout(() => {
+        document.body.style.background = 'black';
+        container.style.display = 'none';
+        portfolio.style.display = 'block';
 
-
-    <!--====== ABOUT PART START ======-->
-    
-    <section hidden="true" class="about-area pt-70">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="about-content mt-50 wow fadeInLeftBig" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <div class="section-title">
-                            <div class="line"></div>
-                            <h3 class="title"><span>Crafted for</span> SaaS, App and Software Landing Page</h3>
-                        </div> <!-- section title -->
-                        <p class="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seiam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing.</p>
-                        <a href="#" class="main-btn">Try it Free</a>
-                    </div> <!-- about content -->
-                </div>
-                <div class="col-lg-6">
-                    <div class="about-image text-center mt-50 wow fadeInRightBig" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <img src="assets/images/about3.svg" alt="about">
-                    </div> <!-- about image -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-        <div class="about-shape-1">
-            <img src="assets/images/about-shape-1.svg" alt="shape">
-        </div>
-    </section>
-    
-   
-
-    
-    <!--====== FOOTER PART START ======-->
-    
-    <footer id="footer" class="footer-area pt-120">
-        <div class="container">
-            
-            <div class="footer-copyright">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="copyright d-sm-flex justify-content-between">
-                            <div class="copyright-content">
-                               <!--  <p class="text">Designed and Developed by <a href="#" rel="nofollow">EasyHQ</a></p>-->
-                            </div> <!-- copyright content -->
-                        </div> <!-- copyright -->
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- footer copyright -->
-        </div> <!-- container -->
-        <div id="particles-2"></div>
-    </footer>
-    
-    <!--====== FOOTER PART ENDS ======-->
-    
-    <!--====== BACK TOP TOP PART START ======-->
-
-    <a href="#" class="back-to-top"><i class="lni lni-chevron-up"></i></a>
-
-    <!--====== BACK TOP TOP PART ENDS ======-->   
-    
-    <!--====== PART START ======-->
-    
-<!--
-    <section class="">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-"></div>
-            </div>
-        </div>
-    </section>
--->
-    
-    <!--====== PART ENDS ======-->
-
-
-
-
-    <!--====== Jquery js ======-->
-    <script src="assets/js/vendor/jquery-3.5.1-min.js"></script>
-    <script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
-    
-    <!--====== Bootstrap js ======-->
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap-4.5.0.min.js"></script>
-    
-    <!--====== Plugins js ======-->
-    <script src="assets/js/plugins.js"></script>
-    
-    <!--====== Counter Up js ======-->
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    
-
-    
-    <!--====== Scrolling Nav js ======-->
-    <script src="assets/js/jquery.easing.min.js"></script>
-    <script src="assets/js/scrolling-nav.js"></script>
-    
-    <!--====== wow js ======-->
-    <script src="assets/js/wow.min.js"></script>
-    
-    <!--====== Particles js ======-->
-    <script src="assets/js/particles.min.js"></script>
-    
-    <!--====== Main js ======-->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/typingeffect.js"></script>
-    
+        // Fade in the portfolio
+        setTimeout(() => {
+          portfolio.style.opacity = 1;
+        }, 10); // Small delay to ensure the display change takes effect
+      }, 1000); // Wait for the transition to complete
+    }
+  </script>
 </body>
-
 </html>
