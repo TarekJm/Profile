@@ -1,396 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-  <title>Home</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarek Jmil | Software Architect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+     
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif; 
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
 
-    body, html {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: transparent;
-      font-family: 'Orbitron', sans-serif; /* Futuristic font */
-      transition: background 1s ease-in-out;
-    }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 5px solid #0073e6;
+        }
 
-    .container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 1s ease-in-out;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 38px;
+        }
 
-    #threejs-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; /* Behind the overlay text */
-    }
+        header p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
 
-    .overlay-text {
-      position: absolute;
-      top: 5px;
-      color: #000; /* Neon green color */
-      font-size: 36px; /* Larger size for more impact */
-      text-align: center;
-      text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red, 0 0 50px red, 0 0 60px red, 0 0 70px red; /* Neon glow */
-      transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
-      cursor: pointer; /* Indicate that the text is clickable */
-    }
+        .contact p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
 
-    .overlay-text {
-      animation: pulse 1s infinite;
-    }
+        section {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
 
-    @keyframes pulse {
-      0% {
-        color: orange;
-        text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red, 0 0 50px red, 0 0 60px red, 0 0 70px red; /* Neon glow */
-      }
-      50% {
-        color: #fff;
-        text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 60px #fff, 0 0 70px #fff, 0 0 80px #fff;
-      }
-      100% {
-        color: orange;
-        text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red, 0 0 50px red, 0 0 60px red, 0 0 70px red; /* Neon glow */
-      }
-    }
+        h2 {
+            color: #0056b3;
+            font-size: 24px;
+            border-bottom: 2px solid #0073e6;
+            padding-bottom: 10px;
+        }
 
-    .hidden {
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-    .portfolio {
-      display: none;
-      opacity: 0;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      transition: opacity 1s ease-in-out;
-      font-family: 'Roboto', sans-serif;
-      color: #fff;
-      padding: 40px 20px;
-      background: rgba(0, 0, 0, 0.9);
-      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-    }
+        li {
+            margin-bottom: 12px;
+        }
 
-    .portfolio h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #0056b3;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
 
-    .portfolio p {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
+        a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-    .portfolio .contact-info {
-      margin-top: 20px;
-    }
-
-    .portfolio .contact-info p {
-      margin: 5px 0;
-      font-size: 16px;
-    }
-
-    .portfolio .social-icons {
-      margin: 20px 0;
-    }
-
-    .portfolio .social-icons a {
-      margin: 0 10px;
-      color: #0f0;
-      text-decoration: none;
-      transition: color 0.3s ease-in-out;
-      font-size: 20px;
-    }
-
-    .portfolio .social-icons a:hover {
-      color: #fff;
-    }
-
-    .portfolio .skills {
-      margin-top: 30px;
-    }
-
-    .portfolio .skills .skill {
-      margin: 10px 0;
-    }
-
-    .portfolio .skills .skill span {
-      display: inline-block;
-      background: #0f0;
-      color: #000;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 18px;
-    }
-    
-    .project-list {
-      text-align: left;
-      margin-top: 20px;
-    }
-
-    .project {
-      margin-bottom: 20px;
-    }
-
-    .project-title {
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: #0f0;
-    }
-
-    .project-details {
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
-    
-    .education-section {
-      margin-top: 30px;
-    }
-
-    .education {
-      margin-bottom: 20px;
-    }
-
-    .education-title {
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: #0f0;
-    }
-
-    .education-details {
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
-
-    .education .icon {
-      margin-right: 10px;
-    }
-  </style>
+        a:hover {
+            color: #ffcc00;
+            text-decoration: underline;
+        }
+      
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <div  id="threejs-canvas"></div>
-    <div class="overlay-text"  >ﮩـﮩﮩ٨ـ🫀ﮩ٨ـﮩﮩ٨ـ</div> 
-  </div>
+    <header>
+        <h1>Tarek Jmil</h1>
+        <p>Software Architect · Developer/Designer Java/JEE (10 Years Experience)</p>
+        <div class="contact">
+            <p>📍 Mednine, Tunisia</p>
+            <p>📞 (+216) 20 124 414</p>
+            <p>✉️ <a href="mailto:kknj684@gmail.com">kknj684@gmail.com</a></p>
+            <p>GitHub: <a href="https://github.com/TarekJm" target="_blank">Tarek.Jm</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/jmil-tarek-458b00149" target="_blank">Tarek Jmil</a></p>
+        </div>
+    </header>
 
-  <div class="portfolio">
-    <h1>Jmil Tarek</h1>
-    <p>Full Stack Developer 👨🏻‍💻</p>
-    <h2>🗂️ Projects</h2>
-    <div class="project-list">
-      <div class="project">
-        <div class="project-title">E-Commerce Platform </div>
-        <div class="project-details"><strong>Technologies:</strong> React, Node.js, MongoDB</div>
-        <div class="project-details"><strong>Position:</strong> Lead Developer</div>
-        <div class="project-details"><strong>Modules:</strong> User Authentication, Product Management, Payment Gateway Integration</div>
-        <div class="project-details"><strong>Responsibilities:</strong> Developed the front-end and back-end, integrated third-party APIs, and led a team of 5 developers.</div>
-      </div>
-      <div class="project">
-        <div class="project-title">Social Media App </div>
-        <div class="project-details"><strong>Technologies:</strong> Flutter, Firebase</div>
-        <div class="project-details"><strong>Position:</strong> Mobile Developer</div>
-        <div class="project-details"><strong>Modules:</strong> Real-Time Chat, User Profiles, Notifications</div>
-        <div class="project-details"><strong>Responsibilities:</strong> Implemented the UI/UX design, developed key features, and ensured real-time data synchronization.</div>
-      </div>
-      <div class="project">
-        <div class="project-title">Healthcare Management System </div>
-        <div class="project-details"><strong>Technologies:</strong> Angular, Spring Boot, MySQL</div>
-        <div class="project-details"><strong>Position:</strong> Backend Developer</div>
-        <div class="project-details"><strong>Modules:</strong> Patient Records, Appointment Scheduling, Billing</div>
-        <div class="project-details"><strong>Responsibilities:</strong> Designed and developed RESTful APIs, managed database schemas, and performed unit testing.</div>
-      </div>
-    </div>
-    
-    <div class="education-section">
-      <h2>🎓 Education</h2>
-      <div class="education">
-        <div class="education-title">Bachelor of Science in Computer Science</div>
-        <div class="education-details"><span class="icon"></span> ABC University</div>
-        <div class="education-details"><span class="icon"></span> 2015 - 2019</div>
-        <div class="education-details"><span class="icon"></span> Graduated with Honors</div>
-      </div>
-      <div class="education">
-        <div class="education-title">Master of Science in Software Engineering</div>
-        <div class="education-details"><span class="icon"></span> XYZ University</div>
-        <div class="education-details"><span class="icon"></span> 2019 - 2021</div>
-        <div class="education-details"><span class="icon"></span> Thesis on Microservices Architecture</div>
-      </div>
-    </div>
-    
-    <div class="skills">
-      <h2>⚒️ Skills</h2>
-      <div class="skill"><span>JavaScript</span></div>
-      <div class="skill"><span>Python</span></div>
-      <div class="skill"><span>React</span></div>
-      <div class="skill"><span>Node.js</span></div>
-      <div class="skill"><span>SQL</span></div>
-      <div class="skill"><span>Docker</span></div>
-      <div class="skill"><span>CI/CD</span></div>
-      <div class="skill"><span>Cloud Computing</span></div>
-    </div>
-    
-    <div class="contact-info">
-      <h2>📞 Contact</h2>
-      <p>Email: jmiltarek@example.com</p>
-      <p>Phone: (123) 456-7890</p>
-      <p>Location: City, Country</p>
-      <div class="social-icons">
-        <a href="#" target="_blank">LinkedIn</a>
-        <a href="#" target="_blank">GitHub</a>
-        <a href="#" target="_blank">Twitter</a>
-      </div>
-    </div>
-  </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-// Three.js setup
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById('threejs-canvas').appendChild(renderer.domElement);
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li><strong>DevOps:</strong> Docker, Kubernetes, Jenkins, Gcloud, Windows Server, Linux OS, AWS</li>
+            <li><strong>Back-end:</strong> Java 1.8-17, JavaEE, SpringBoot, Spring Data, Spring Security, Hibernate, REST API, CSharp, Node.js, VB.net</li>
+            <li><strong>Front-end:</strong> Typescript, Rxjs, Angular, HTML5, SASS, PWA, Javascript</li>
+            <li><strong>SGBD:</strong> SQL Server 2019, MariaDB, Oracle, PostgreSQL</li>
+            <li><strong>NoSQL:</strong> Elasticsearch</li>
+            <li><strong>Observability:</strong> Grafana, Prometheus, Logstash, fileBeat, Metricbeat, Kibana</li>
+            <li><strong>Version Control:</strong> Git, SVN</li>
+            <li><strong>Languages:</strong> Arabic, English, French, Italian</li>
+        </ul>
+    </section>
 
-// Create a function for rounded box geometry
-function createRoundedBox(width, height, depth, radius, smoothness) {
-  let shape = new THREE.Shape();
-  let eps = 0.00001;
-  let radiusOffset = radius - eps;
-  shape.absarc(eps, eps, eps, -Math.PI / 2, -Math.PI, true);
-  shape.absarc(eps, height - radius * 2, eps, Math.PI, Math.PI / 2, true);
-  shape.absarc(width - radius * 2, height - radius * 2, eps, Math.PI / 2, 0, true);
-  shape.absarc(width - radius * 2, eps, eps, 0, -Math.PI / 2, true);
-  let geometry = new THREE.ExtrudeBufferGeometry(shape, {
-    amount: depth - radius * 2,
-    bevelEnabled: true,
-    bevelSegments: smoothness * 2,
-    steps: 1,
-    bevelSize: radiusOffset,
-    bevelThickness: radius,
-    curveSegments: smoothness,
-  });
-  geometry.center();
-  return geometry;
-}
+    <section id="education">
+        <h2>Education</h2>
+        <ul>
+            <li><strong>Faculty of Economics and Management, Sfax (FSEGS)</strong> – Professional Master in IT Audit and Security (2016-2018)</li>
+            <li><strong>Faculty of Economics and Management, Sfax (FSEGS)</strong> – Fundamental Degree in Business Informatics (2011-2014)</li>
+        </ul>
+    </section>
 
-// Create the rounded box geometry
-const geometry = createRoundedBox(1, 1, 1, 0.1, 16);
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="job">
+            <h3>Team Leader – SREI, Mednine, Tunisia</h3>
+            <span>Jan. 2023 – Present</span>
+            <p>Led the development of the frontend, focusing on performance optimization and user interface enhancement. Designed and implemented backend services, creating a comprehensive set of RESTful APIs.</p>
+        </div>
+        <div class="job">
+            <h3>Software Architect – Hosinox, Mednine, Tunisia</h3>
+            <span>Nov. 2020 – Jan. 2023</span>
+            <p>Developed a modern, responsive user interface with offline capabilities and enhanced user experience.</p>
+        </div>
+        <div class="job">
+            <h3>Senior Developer – Hosinox, Mednine, Tunisia</h3>
+            <span>Feb. 2019 – Dec. 2019</span>
+            <p>Developed accounting modules, integrating database and deploying the application securely.</p>
+        </div>
+        <div class="job">
+            <h3>Network Manager – Cip-Software, Sfax, Tunisia</h3>
+            <span>2018 – 2019</span>
+            <p>Managed firewalls, VPN routes, and network security for the ERP system.</p>
+        </div>
+        <div class="job">
+            <h3>Developer – Cip-Software, Sfax, Tunisia</h3>
+            <span>2013 – 2016</span>
+            <p>Developed immobilization management web application, ensuring smooth data handling and application security.</p>
+        </div>
+    </section>
 
-// Create a canvas texture with a question mark
-function createQuestionMarkTexture() {
-  const size = 256; // Texture size
-  const canvas = document.createElement('canvas');
-  canvas.width = size;
-  canvas.height = size;
-  const context = canvas.getContext('2d');
-  context.fillStyle = 'darkorange'; // Background color
-  context.fillRect(0, 0, size, size);
+    <footer>
+        <p>© 2024 Tarek Jmil · Curriculum Vitae</p>
+    </footer>
 
-  context.font = 'bold 150px Arial';
-  context.fillStyle = 'white';
-  context.textAlign = 'center';
-  context.textBaseline = 'middle';
-  context.fillText('?', size / 2, size / 2);
-
-  return new THREE.CanvasTexture(canvas);
-}
-
-// Create the material with the question mark texture
-const material = new THREE.MeshPhongMaterial({ 
-  map: createQuestionMarkTexture(), 
-  shininess: 100 
-});
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
-
-// Add a light source for better shading effects
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(1, 1, 1).normalize();
-scene.add(light);
-
-camera.position.z = 5;
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  // Rotate the cube for animation
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-
-  renderer.render(scene, camera);
-}
-animate();
-
-// Handling resizing
-window.addEventListener('resize', () => {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-});
-
-// Raycaster and mouse setup
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-
-function onMouseClick(event) {
-  // Calculate mouse position in normalized device coordinates (-1 to +1)
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-  // Update the raycaster with the camera and mouse position
-  raycaster.setFromCamera(mouse, camera);
-
-  // Check if the cube was clicked
-  const intersects = raycaster.intersectObject(cube);
-  if (intersects.length > 0) {
-    // If the cube was clicked, trigger the changeText function
-    changeText();
-  }
-}
-
-window.addEventListener('click', onMouseClick);
-
-function changeText() { 
-  const container = document.querySelector('.container');
-  const portfolio = document.querySelector('.portfolio');
-
-  // Fade out the current content
-  container.classList.add('hidden');
-
-  // Change background to black and show portfolio after fade out
-  setTimeout(() => {
-    document.body.style.background = 'black';
-    container.style.display = 'none';
-    portfolio.style.display = 'block';
-
-    // Fade in the portfolio
-    setTimeout(() => {
-      portfolio.style.opacity = 1;
-    }, 10); // Small delay to ensure the display change takes effect
-  }, 1000); // Wait for the transition to complete
-}
-</script>
-
+    <script>
+        console.log("Page loaded successfully");
+    </script>
 </body>
-</html> 
- 
+
+</html>
